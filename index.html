@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+
+    <!-- Calendar -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>    
+
+    <!-- The moment-to-fullcalendar connector. must go AFTER the moment lib -->
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/moment@6.1.8/index.global.min.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+
+    <title>Calendar</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="blue__line"></div>
+            <img src="images/logo.png" alt="Логотип" class="header__logo">
+
+            <div class="header__top">
+                <div class="container__top">
+                    <select class="language">
+                        <option>РУС</option>
+                        <option>ENG</option>
+                    </select>
+
+                    <div class="log__in">
+                        <img src="images/login-icon.png" alt="Иконка входа" class="login__icon">
+                        <div class="log__in__btn">Авторизация</div>
+                    </div>
+
+                    <div class="menu__header__mobile">
+                        <div class="dropdownheader">
+                            <button onclick="openHeaderMenuMobile()" class="dropbtnheader"><i class="fa fa-bars"></i> МЕНЮ</button>
+                            <div id="myDropdownHeader" class="header-content">
+                                <a href="#">ГЛАВНАЯ</a>
+                                <a href="#">НОВОСТИ</a>
+                                <a href="#">О КОМПАНИИ</a>
+                                <a href="#">КАТАЛОГ</a>
+                                <a href="#">ВОПРОСЫ И ОТВЕТЫ</a>
+                                <a href="#">КАЛЕНДАРЬ</a>
+                                <a href="#">КОНТАКТЫ</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="search">
+                        <input class="search__input" type="text" placeholder="Введите слово или фразу для поиска">
+                        <button class="search__btn">
+                            <img src="images/icon-search.png" alt="Иконка поиска" class="search__icon">
+                        </button>
+                    </div>
+
+                    <div class="authorization">
+                        <img src="images/authorization-icon.png" alt="Иконка авторизации" class="auth__icon">
+                        
+                        <div class="auth__person">
+                            <div class="name">Герман Радченко</div>
+                            <div class="position">Проектный менеджер</div>
+                        </div>                        
+                    </div>
+
+                    <button class="log__out">Выйти</button>
+                </div>
+            </div>
+
+            <div class="header__bottom">
+                <div class="container__bottom">
+                        <a href="#">Главная</a>
+                        <a href="#">Новости</a>
+                        <a href="#">О компании</a>
+                        <a href="#">Каталог</a>
+                        <a href="#">Вопросы и ответы</a>
+                        <a href="#">Календарь</a>
+                        <a href="#">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <ul class="breadcrumb">
+        <li><a href="#">Главная</a></li>
+        <li>Календарь</li>
+    </ul>
+
+    <!-- Main -->
+    <main>
+        <h1>Календарь событий</h1>
+        <div id='calendar-container'>
+            <div id='calendar-toolbar'>
+                <div id="calendar-left-container">
+                    <img src="images/arrow-prev.png" alt="Предыдущий месяц" id="prevButton">
+                    <h2 id="calendar-title">
+                        <span id="previous-month-2">Month</span>
+                        <span id="previous-month-1">Month</span>
+                        <span id="current-month">Month</span>
+                        <span id="next-month-1">Month</span>
+                        <span id="next-month-2">Month</span>
+                    </h2>
+                    <img src="images/arrow-next.png" alt="Следующий месяц" id="nextButton">
+                </div>
+
+                <div id="calendar__right__container">
+                    <select id="category-select">
+                        <option value="">Все события</option>
+                        <option value="Презентация">Презентации</option>
+                        <option value="Вебинар">Вебинар</option>
+                    </select>
+    
+                    <select id="year-select">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id='calendar'></div>
+
+            <div class="event__overlay" id="event__overlay">
+                <div class="event__modal" id="event__modal"></div>
+            </div>
+        </div>
+        
+        <h1>Доступные события</h1>
+        <div class="events"></div>
+        <button class="show__more">Еще +6 событий</button>
+    </main>
+
+    <footer class="footer">
+        <div class="menu__footer__mobile">
+            <div class="dropdownfooter1">
+                <button onclick="openFooterMenuMobile1()" class="dropbtnfooter1">САЙТ <i class="bi bi-caret-down-fill"></i></button>
+                <div id="myDropdownFooter1" class="footer-content1">
+                    <a href="#">Главная</a>
+                    <a href="#">Доказательная база</a>
+                    <a href="#">Календарь</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu__footer__mobile">
+            <div class="dropdownfooter2">
+                <button onclick="openFooterMenuMobile2()" class="dropbtnfooter2">КАТАЛОГ <i class="bi bi-caret-down-fill"></i></button>
+                <div id="myDropdownFooter2" class="footer-content2">
+                    <a href="#">О компании</a>
+                    <a href="#">Урологические</a>
+                    <a href="#">Респираторные</a>
+                    <a href="#">Гинекологические</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu__footer__mobile">
+            <div class="dropdownfooter3">
+                <button onclick="openFooterMenuMobile3()" class="dropbtnfooter3">КОНТАКТЫ <i class="bi bi-caret-down-fill"></i></button>
+                <div id="myDropdownFooter3" class="footer-content3">
+                    <a href="#">700032 г. Алматы, ул. Сейфулина 31, оф 234</a>
+                    <a href="#">+7 708 530-54-26</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__left">            
+            <a href="#" class="footer___title">САЙТ</a>
+            <a href="#" class="footer__menu">Главная</a>
+            <a href="#" class="footer__menu">Доказательная база</a>
+            <a href="#" class="footer__menu">Календарь</a>
+            <a href="#" class="footer__menu">Контакты</a>
+        </div>
+
+        <div class="footer__middle">
+            <a href="#" class="footer___title">КАТАЛОГ</a>
+            <a href="#" class="footer__menu">О компании</a>
+            <a href="#" class="footer__menu">Урологические</a>
+            <a href="#" class="footer__menu">Респираторные</a>
+            <a href="#" class="footer__menu">Гинекологические</a>
+        </div>
+        
+        <div class="footer__right">
+            <a href="#" class="footer___title">КОНТАКТЫ</a>
+            
+            <div class="footer__address">
+                <img src="images/footer__address.png" alt="Иконка" class="footer__icon">
+                <div>700032 г. Алматы, ул. Сейфулина 31, оф 234</div>
+            </div>
+
+            <div class="footer__phone">
+                <img src="images/footer__phone.png" alt="Иконка" class="footer__icon">
+                <div>+7 708 530-54-26</div>
+            </div>
+
+            <div>
+                <img src="images/social-media-1.png" alt="Иконка" class="footer__icon">
+                <img src="images/social-media-2.png" alt="Иконка" class="footer__icon">
+                <img src="images/social-media-3.png" alt="Иконка" class="footer__icon">
+                <img src="images/social-media-4.png" alt="Иконка" class="footer__icon">
+                <img src="images/social-media-5.png" alt="Иконка" class="footer__icon">
+                <img src="images/social-media-6.png" alt="Иконка" class="footer__icon">
+            </div>
+        </div>
+    </footer>
+
+    <div class="blue__line"></div>
+
+    <script src="events.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
