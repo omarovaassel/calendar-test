@@ -400,6 +400,10 @@ h1 {
     position: relative;
 }
 
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0;
+}
+
 .fc-col-header-cell {
     text-transform: capitalize;
 }
@@ -1038,6 +1042,14 @@ h1 {
         width: 520px;
     }
 
+    #calendar {
+        padding-top: 20px;
+    }
+
+    .fc .fc-toolbar.fc-header-toolbar {
+        margin-bottom: 0;
+    }
+
     .footer {
         justify-content: space-between;
         padding-left: 60px;
@@ -1210,6 +1222,10 @@ h1 {
     .event__text {
         font-size: 16px;
         line-height: 23.4px;
+    }
+
+    #calendar {
+        padding-top: 20px;
     }
 
     .fc-daygrid-dot-event .fc-event-title {
